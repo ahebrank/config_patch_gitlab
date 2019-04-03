@@ -12,6 +12,6 @@
   },
   "require": {
     "drupal/config_patch": "1.x-dev",
-    "drupal/swiftmailer": "1.0"
+    "drupal/swiftmailer": "~1.0"
   }
 }
