@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_mail().
+ */
+function config_patch_gitlab_mail($key, &$message, $params) {
+  if ($key == 'send_patch') {
+    $message['from'] = $params['ident'];
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['message'];
+    $message['params']['files'] = $params['attachments'];
+  }
+}

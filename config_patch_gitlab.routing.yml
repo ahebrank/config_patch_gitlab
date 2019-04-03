@@ -1,0 +1,7 @@
+config_patch_gitlab.settings:
+  path: '/admin/config/development/config_patch/gitlab'
+  defaults:
+    _form: '\Drupal\config_patch_gitlab\Form\ConfigPatchGitlabSettings'
+    _title: 'Gitlab Settings'
+  requirements:
+    _permission: 'administer config_patch'

@@ -1,0 +1,17 @@
+{
+  "name": "drupal/config_patch_gitlab",
+  "type": "drupal-module",
+  "description": "Gitlab merge request plugin for config_patch",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/config_patch_gitlab",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/config_patch_gitlab",
+    "source": "http://cgit.drupalcode.org/config_patch_gitlab"
+  },
+  "require": {
+    "drupal/config_patch": "1.x-dev",
+    "drupal/swiftmailer": "1.0"
+  }
+}

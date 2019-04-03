@@ -1,0 +1,9 @@
+name: 'Config Patch Gitlab'
+type: module
+description: 'Send patches to Gitlab as MRs'
+core: 8.x
+package: 'Config'
+configure: config_patch_gitlab.settings
+dependencies:
+  - config_patch:config_patch
+  - swiftmailer:swiftmailer
