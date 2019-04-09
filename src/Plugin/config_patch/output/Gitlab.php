@@ -9,6 +9,8 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Simple text output of the patches.
@@ -60,7 +62,7 @@ class Gitlab extends OutputPluginBase implements OutputPluginInterface, Containe
   /**
    * {@inheritdoc}
    */
-  public function output(array $patches) {
+  public function output(array $patches, FormStateInterface $form_state) {
     $config = $this->configFactory->get('config_patch_gitlab.settings');
     $to = $config->get('email');
     if (!$to) {
@@ -116,6 +118,9 @@ HEADER;
       implode("\r\n", array_map(function ($name) {
         return " - " . $name;
       }, $config_names));
+    if ($custom_message = $form_state->getValue('mr_message', NULL)) {
+      $params['message'] .= "\n\n" .  Xss::filter($custom_message);
+    }
     if ($suffix = $config->get('append_message')) {
       $params['message'] .= "\n\n" . $suffix;
     }

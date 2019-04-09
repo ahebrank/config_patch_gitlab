@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_mail().
  */
@@ -10,4 +12,16 @@ function config_patch_gitlab_mail($key, &$message, $params) {
     $message['body'][] = $params['message'];
     $message['params']['files'] = $params['attachments'];
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add extra fields to patch submission form.
+ */
+function config_patch_gitlab_form_config_patch_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['mr_message'] = [
+    '#type' => 'textarea',
+    '#description' => t('Additional description for this merge request.'),
+  ];
 }
