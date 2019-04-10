@@ -132,7 +132,7 @@ HEADER;
     if ($result['result']) {
       $message = 'Sent patch.';
       if ($url = $config->get('mr_list_link')) {
-        $message .= ' <a href="' . $url . '">View merge requests.</a>';
+        $message .= ' <a href="' . $url . '">View merge requests</a> (Gitlab may take a few minutes to process the patch and create the MR).';
       }
       $messenger->addStatus([
         '#markup' => $message,
