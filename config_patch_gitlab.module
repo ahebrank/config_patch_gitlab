@@ -24,7 +24,8 @@ function config_patch_gitlab_form_config_patch_form_alter(&$form, FormStateInter
     return;
   }
   $form['mr_message'] = [
+    '#title' => t('Optional merge request notes'),
     '#type' => 'textarea',
-    '#description' => t('Additional description for this merge request.'),
+    '#description' => t('Gitlab markdown and quick actions are supported.'),
   ];
 }
