@@ -144,13 +144,11 @@ HEADER;
    * {@inheritdoc}
    */
   public function alterForm(array $form, FormStateInterface $form_state) {
-    if (isset($form['actions']['#access']) && $form['actions']['#access'] !== FALSE) {
-      $form['mr_message'] = [
-        '#title' => t('Optional merge request notes'),
-        '#type' => 'textarea',
-        '#description' => t('Gitlab markdown and quick actions are supported.'),
-      ];
-    }
+    $form['mr_message'] = [
+      '#title' => t('Optional merge request notes'),
+      '#type' => 'textarea',
+      '#description' => t('Gitlab markdown and quick actions are supported.'),
+    ];
     return $form;
   }
 
