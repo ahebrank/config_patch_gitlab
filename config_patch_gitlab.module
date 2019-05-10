@@ -13,19 +13,3 @@ function config_patch_gitlab_mail($key, &$message, $params) {
     $message['params']['files'] = $params['attachments'];
   }
 }
-
-/**
- * Implements hook_form_FORM_ID_alter().
- *
- * Add extra fields to patch submission form.
- */
-function config_patch_gitlab_form_config_patch_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (isset($form['actions']['#access']) && $form['actions']['#access'] === FALSE) {
-    return;
-  }
-  $form['mr_message'] = [
-    '#title' => t('Optional merge request notes'),
-    '#type' => 'textarea',
-    '#description' => t('Gitlab markdown and quick actions are supported.'),
-  ];
-}

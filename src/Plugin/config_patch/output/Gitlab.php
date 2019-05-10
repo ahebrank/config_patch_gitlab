@@ -119,7 +119,7 @@ HEADER;
         return " - " . $name;
       }, $config_names));
     if ($custom_message = $form_state->getValue('mr_message', NULL)) {
-      $params['message'] .= "\n\n" .  Xss::filter($custom_message);
+      $params['message'] .= "\n\n" . Xss::filter($custom_message);
     }
     if ($suffix = $config->get('append_message')) {
       $params['message'] .= "\n\n" . $suffix;
@@ -138,6 +138,20 @@ HEADER;
         '#markup' => $message,
       ]);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alterForm(array $form, FormStateInterface $form_state) {
+    if (isset($form['actions']['#access']) && $form['actions']['#access'] !== FALSE) {
+      $form['mr_message'] = [
+        '#title' => t('Optional merge request notes'),
+        '#type' => 'textarea',
+        '#description' => t('Gitlab markdown and quick actions are supported.'),
+      ];
+    }
+    return $form;
   }
 
 }

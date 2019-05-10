@@ -7,3 +7,4 @@ configure: config_patch_gitlab.settings
 dependencies:
   - config_patch:config_patch
   - swiftmailer:swiftmailer
+  - mailsystem:mailsystem

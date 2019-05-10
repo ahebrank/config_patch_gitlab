@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function config_patch_gitlab_install() {
+  // Add default mail transport for the module.
+  $settings = Drupal::configFactory()->getEditable('mailsystem.settings');
+  $settings->set('modules.config_patch_gitlab.send_patch', [
+    'formatter' => 'swiftmailer',
+    'sender' => 'swiftmailer',
+  ])->save();
+}
