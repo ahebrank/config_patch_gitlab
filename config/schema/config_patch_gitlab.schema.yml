@@ -11,3 +11,6 @@ config_patch_gitlab.settings:
     mr_list_link:
       type: string
       label: 'URL to MRs in repo'
+    use_system_email:
+      type: boolean
+      label: 'Use site email as from address'

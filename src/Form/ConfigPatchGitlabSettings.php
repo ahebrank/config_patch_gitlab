@@ -51,6 +51,12 @@ class ConfigPatchGitlabSettings extends ConfigFormBase {
       '#description' => $this->t('URL to the Gitlab repository merge requests.'),
       '#default_value' => $config->get('mr_list_link') ?? '',
     ];
+    $form['use_system_email'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use system email address'),
+      '#description' => $this->t('Use the system email as the from address for MR emails, rather than the user email address.'),
+      '#default_value' => $config->get('use_system_email') ?? '',
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -64,6 +70,7 @@ class ConfigPatchGitlabSettings extends ConfigFormBase {
       'email',
       'append_message',
       'mr_list_link',
+      'use_system_email',
     ];
     $config = $this->config('config_patch_gitlab.settings');
     foreach ($config_fields as $config_field) {

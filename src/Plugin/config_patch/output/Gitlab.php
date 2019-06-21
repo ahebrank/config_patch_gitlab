@@ -73,6 +73,10 @@ class Gitlab extends OutputPluginBase implements OutputPluginInterface, Containe
     $current_user = \Drupal::currentUser();
     $email_ident = $current_user->getDisplayName() . '<' . $current_user->getEmail() . '>';
     $params['ident'] = $email_ident;
+    $params['from'] = $email_ident;
+    if ($config->get('use_system_email')) {
+      $params['from'] = $this->configFactory->get('system.site')->get('mail');
+    }
 
     $module = 'config_patch_gitlab';
     $key = 'send_patch';

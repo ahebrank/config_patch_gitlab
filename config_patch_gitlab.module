@@ -23,7 +23,7 @@ function config_patch_gitlab_help($route_name, RouteMatchInterface $route_match)
  */
 function config_patch_gitlab_mail($key, &$message, $params) {
   if ($key == 'send_patch') {
-    $message['from'] = $params['ident'];
+    $message['from'] = $params['from'];
     $message['subject'] = $params['subject'];
     $message['body'][] = $params['message'];
     $message['params']['files'] = $params['attachments'];
