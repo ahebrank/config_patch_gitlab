@@ -11,7 +11,7 @@
     "source": "http://cgit.drupalcode.org/config_patch_gitlab"
   },
   "require": {
-    "drupal/config_patch": "1.x-dev",
+    "drupal/config_patch": "^1.0 || ^2.0",
     "drupal/swiftmailer": "~1.0"
   }
 }
