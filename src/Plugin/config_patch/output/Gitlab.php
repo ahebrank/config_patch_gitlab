@@ -7,6 +7,7 @@ use Drupal\config_patch\Plugin\config_patch\output\OutputPluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\Core\Form\FormStateInterface;
@@ -38,12 +39,20 @@ class Gitlab extends OutputPluginBase implements OutputPluginInterface, Containe
   protected $mailManager;
 
   /**
+   * The filesystem handler.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * Inject dependencies.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, MailManagerInterface $mail_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, MailManagerInterface $mail_manager, FileSystemInterface $file_system) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->mailManager = $mail_manager;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -55,7 +64,8 @@ class Gitlab extends OutputPluginBase implements OutputPluginInterface, Containe
       $plugin_id,
       $plugin_definition,
       $container->get('config.factory'),
-      $container->get('plugin.manager.mail')
+      $container->get('plugin.manager.mail'),
+      $container->get('file_system')
     );
   }
 
@@ -110,7 +120,8 @@ HEADER;
 
       $output = $patch_header . "\n" . $output;
 
-      $fn = file_unmanaged_save_data($output);
+      $fn = $this->fileSystem->tempnam('temporary://', 'file');
+      $this->fileSystem->saveData($output, $fn, FileSystemInterface::EXISTS_REPLACE);
       $file = new \stdClass();
       $file->uri = $fn;
       $file->filename = 'config-' . $i . '.patch';
